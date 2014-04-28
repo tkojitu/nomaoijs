@@ -108,6 +108,7 @@ Input.prototype.onTouchStart = function(event) {
     return;
   }
   this.circuit.play(found.noteNumber);
+  event.preventDefault();
 };
 
 Input.prototype.findTouchedPadAll = function(touch) {
@@ -138,4 +139,5 @@ Input.prototype.findTouchedPad = function(touch, pads) {
 
 Input.prototype.onTouchEnd = function(event) {
   this.circuit.stop();
+  event.preventDefault();
 };
