@@ -1,4 +1,5 @@
-function Circuit() {
+function Circuit(config) {
+  this.config = config;
   this.context = new webkitAudioContext();
   this.frequencies = [
     8.1757989156,  // 0
@@ -134,7 +135,7 @@ function Circuit() {
 
 Circuit.prototype.setup = function() {
   this.oscillator = this.context.createOscillator();
-  this.oscillator.type = "square";
+  this.oscillator.type = this.config.getType();
   this.gain = this.context.createGainNode();
   this.gain.connect(this.context.destination);
   this.oscillator.connect(this.gain);

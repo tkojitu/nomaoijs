@@ -3,7 +3,8 @@
 
   function onLoad() {
     resizeViewport();
-    gInput = new Input(new Circuit(), new Config(), getViewport());
+    var config = new Config();
+    gInput = new Input(new Circuit(config), config, getViewport());
     addEventListeners();
     gInput.draw(getViewport().getContext("2d"));
   }

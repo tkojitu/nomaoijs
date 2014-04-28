@@ -2,6 +2,10 @@ function Config() {
   this.keys = null;
 }
 
+Config.prototype.getType = function() {
+  return "square";
+};
+
 Config.prototype.getKeys = function() {
   if (this.keys != null) {
     return this.keys;
