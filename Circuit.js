@@ -146,10 +146,8 @@ Circuit.prototype.play = function(noteNumber) {
   this.oscillator.frequency.value = this.frequencies[noteNumber];
   this.gain.gain.value = 0.5;
   this.oscillator.start(0);
-  console.log("play: " + this.oscillator.frequency.value + ", " + this.gain.gain.value);
 };
 
 Circuit.prototype.stop = function() {
   this.oscillator.stop(0);
-  console.log("stop");
 };
