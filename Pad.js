@@ -4,6 +4,8 @@ function Pad(x, y, width, height, noteNumber) {
   this.width = width;
   this.height = height;
   this.noteNumber = noteNumber;
+  this.identifier = null;
+  this.circuit = null;
 }
 
 Pad.prototype.draw = function(context) {

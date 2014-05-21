@@ -1,6 +1,6 @@
-function Input(circuit, config, viewport) {
-  this.circuit = circuit;
+function Input(config, viewport, context) {
   this.config = config;
+  this.context = context;
   this.viewportWidth = viewport.width;
   this.viewportHeight = viewport.height;
   this.leftWhites = [];
@@ -103,11 +103,18 @@ Input.prototype.drawPads = function(context, pads) {
 };
 
 Input.prototype.onTouchStart = function(event) {
-  var found = this.findTouchedPadAll(event.touches[0]);
-  if (found === null) {
-    return;
+  for (var i = 0; i < event.changedTouches.length; ++i) {
+    var found = this.findTouchedPadAll(event.changedTouches[i]);
+    if (found === null) {
+      continue;
+    }
+    if (found.circuit !== null) {
+      continue;
+    }
+    found.circuit = new Circuit(this.config, this.context);
+    found.circuit.play(found.noteNumber);
+    found.identifier = event.changedTouches[i].identifier;
   }
-  this.circuit.play(found.noteNumber);
   event.preventDefault();
 };
 
@@ -138,6 +145,44 @@ Input.prototype.findTouchedPad = function(touch, pads) {
 };
 
 Input.prototype.onTouchEnd = function(event) {
-  this.circuit.stop();
+  for (var i = 0; i < event.changedTouches.length; ++i) {
+    var found = this.findPlayingPadAll(event.changedTouches[i]);
+    if (found === null) {
+      continue;
+    }
+    found.circuit.stop();
+    found.circuit = null;
+    found.identifier = null;
+  }
   event.preventDefault();
 };
+
+Input.prototype.findPlayingPadAll = function(touch) {
+  var found = this.findPlayingPad(touch, this.leftWhites);
+  if (found !== null) {
+    return found;
+  }
+  var found = this.findPlayingPad(touch, this.leftBlacks);
+  if (found !== null) {
+    return found;
+  }
+  var found = this.findPlayingPad(touch, this.rightBlacks);
+  if (found !== null) {
+    return found;
+  }
+  var found = this.findPlayingPad(touch, this.rightWhites);
+  if (found !== null) {
+    return found;
+  }
+  return null;
+};
+
+Input.prototype.findPlayingPad = function(touch, pads) {
+  for (var i = 0; i < pads.length; ++i) {
+    if (pads[i].identifier == touch.identifier) {
+      return pads[i];
+    }
+  }
+  return null;
+};
+

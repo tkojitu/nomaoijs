@@ -4,7 +4,8 @@
   function onLoad() {
     resizeViewport();
     var config = new Config();
-    gInput = new Input(new Circuit(config), config, getViewport());
+    var context = new webkitAudioContext();
+    gInput = new Input(config, getViewport(), context);
     addEventListeners();
     gInput.draw(getViewport().getContext("2d"));
   }

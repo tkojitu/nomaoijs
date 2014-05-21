@@ -1,6 +1,6 @@
-function Circuit(config) {
+function Circuit(config, context) {
   this.config = config;
-  this.context = new webkitAudioContext();
+  this.context = context;
   this.frequencies = [
     8.1757989156,  // 0
     8.6619572180,
