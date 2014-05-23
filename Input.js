@@ -162,15 +162,15 @@ Input.prototype.findPlayingPadAll = function(touch) {
   if (found !== null) {
     return found;
   }
-  var found = this.findPlayingPad(touch, this.leftBlacks);
+  found = this.findPlayingPad(touch, this.leftBlacks);
   if (found !== null) {
     return found;
   }
-  var found = this.findPlayingPad(touch, this.rightBlacks);
+  found = this.findPlayingPad(touch, this.rightBlacks);
   if (found !== null) {
     return found;
   }
-  var found = this.findPlayingPad(touch, this.rightWhites);
+  found = this.findPlayingPad(touch, this.rightWhites);
   if (found !== null) {
     return found;
   }
