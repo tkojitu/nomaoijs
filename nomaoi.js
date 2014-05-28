@@ -6,7 +6,13 @@
     var config = new Config();
     var context = new webkitAudioContext();
     var gain = context.createGain();
-    gInput = new Input(config, getViewport(), context, gain);
+    var resource = {
+      viewport: getViewport(),
+      config: config,
+      context: context,
+      gain: gain
+    };
+    gInput = new Input(resource);
     addEventListeners();
     gInput.draw(getViewport().getContext("2d"));
   }

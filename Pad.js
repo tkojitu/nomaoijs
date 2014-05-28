@@ -1,11 +1,11 @@
-function Pad(x, y, width, height, config, context, gain, noteNumber) {
+function Pad(x, y, width, height, resource, noteNumber) {
   this.x = x;
   this.y = y;
   this.width = width;
   this.height = height;
   this.noteNumber = noteNumber;
   this.identifier = null;
-  this.circuit = new Circuit(config, context, gain, noteNumber);
+  this.circuit = new Circuit(resource, noteNumber);
 }
 
 Pad.prototype.draw = function(context) {
@@ -23,7 +23,7 @@ Pad.prototype.touched = function(x, y) {
     this.y < y && y < this.y + this.height;
 };
 
-Pad.prototype.play = function(config, context, gain, identifier) {
+Pad.prototype.play = function(identifier) {
   this.circuit.play();
   this.identifier = identifier;
 };

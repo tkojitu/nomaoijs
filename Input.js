@@ -1,9 +1,7 @@
-function Input(config, viewport, context, gain) {
-  this.config = config;
-  this.context = context;
-  this.gain = gain;
-  this.viewportWidth = viewport.width;
-  this.viewportHeight = viewport.height;
+function Input(resource) {
+  this.resource = resource;
+  this.viewportWidth = resource.viewport.width;
+  this.viewportHeight = resource.viewport.height;
   this.leftWhites = [];
   this.leftBlacks = [];
   this.rightBlacks = [];
@@ -19,49 +17,49 @@ Input.prototype.newPads = function() {
 };
 
 Input.prototype.newPadsLeftWhites = function() {
-  var keys = this.config.getKeys()[0];
+  var keys = this.resource.config.getKeys()[0];
   var x = 0;
   var y = 0;
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.leftWhites[i] = new Pad(x, y, width, height, this.config, this.context, this.gain, keys[i]);
+    this.leftWhites[i] = new Pad(x, y, width, height, this.resource, keys[i]);
     y += height;
   }
 };
 
 Input.prototype.newPadsLeftBlacks = function() {
-  var keys = this.config.getKeys()[1];
+  var keys = this.resource.config.getKeys()[1];
   var x = this.getPadWidth();
   var y = this.getPadHeight(0) / 2;
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.leftBlacks[i] = new Pad(x, y, width, height, this.config, this.context, this.gain, keys[i]);
+    this.leftBlacks[i] = new Pad(x, y, width, height, this.resource, keys[i]);
     y += height;
   }
 };
 
 Input.prototype.newPadsRightBlacks = function() {
-  var keys = this.config.getKeys()[2];
+  var keys = this.resource.config.getKeys()[2];
   var x = this.getPadWidth() * 3;
   var y = this.getPadHeight() / 2;
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.rightBlacks[i] = new Pad(x, y, width, height, this.config, this.context, this.gain, keys[i]);
+    this.rightBlacks[i] = new Pad(x, y, width, height, this.resource, keys[i]);
     y += height;
   }
 };
 
 Input.prototype.newPadsRightWhites = function() {
-  var keys = this.config.getKeys()[3];
+  var keys = this.resource.config.getKeys()[3];
   var x = this.getPadWidth() * 4;
   var y = 0;
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.rightWhites[i] = new Pad(x, y, width, height, this.config, this.context, this.gain, keys[i]);
+    this.rightWhites[i] = new Pad(x, y, width, height, this.resource, keys[i]);
     y += height;
   }
 };
@@ -109,7 +107,7 @@ Input.prototype.onTouchStart = function(event) {
     if (!found) {
       continue;
     }
-    found.play(this.config, this.context, this.gain, event.changedTouches[i].identifier);
+    found.play(event.changedTouches[i].identifier);
   }
   event.preventDefault();
 };
