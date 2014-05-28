@@ -25,7 +25,7 @@ Input.prototype.newPadsLeftWhites = function() {
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.leftWhites[i] = new Pad(x, y, width, height, keys[i]);
+    this.leftWhites[i] = new Pad(x, y, width, height, this.config, this.context, this.gain, keys[i]);
     y += height;
   }
 };
@@ -37,7 +37,7 @@ Input.prototype.newPadsLeftBlacks = function() {
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.leftBlacks[i] = new Pad(x, y, width, height, keys[i]);
+    this.leftBlacks[i] = new Pad(x, y, width, height, this.config, this.context, this.gain, keys[i]);
     y += height;
   }
 };
@@ -49,7 +49,7 @@ Input.prototype.newPadsRightBlacks = function() {
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.rightBlacks[i] = new Pad(x, y, width, height, keys[i]);
+    this.rightBlacks[i] = new Pad(x, y, width, height, this.config, this.context, this.gain, keys[i]);
     y += height;
   }
 };
@@ -61,7 +61,7 @@ Input.prototype.newPadsRightWhites = function() {
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.rightWhites[i] = new Pad(x, y, width, height, keys[i]);
+    this.rightWhites[i] = new Pad(x, y, width, height, this.config, this.context, this.gain, keys[i]);
     y += height;
   }
 };
