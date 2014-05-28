@@ -5,7 +5,8 @@
     resizeViewport();
     var config = new Config();
     var context = new webkitAudioContext();
-    gInput = new Input(config, getViewport(), context);
+    var gain = context.createGain();
+    gInput = new Input(config, getViewport(), context, gain);
     addEventListeners();
     gInput.draw(getViewport().getContext("2d"));
   }

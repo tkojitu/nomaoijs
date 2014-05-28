@@ -1,6 +1,7 @@
-function Input(config, viewport, context) {
+function Input(config, viewport, context, gain) {
   this.config = config;
   this.context = context;
+  this.gain = gain;
   this.viewportWidth = viewport.width;
   this.viewportHeight = viewport.height;
   this.leftWhites = [];
@@ -111,7 +112,7 @@ Input.prototype.onTouchStart = function(event) {
     if (found.circuit !== null) {
       continue;
     }
-    found.circuit = new Circuit(this.config, this.context);
+    found.circuit = new Circuit(this.config, this.context, this.gain);
     found.circuit.play(found.noteNumber);
     found.identifier = event.changedTouches[i].identifier;
   }
