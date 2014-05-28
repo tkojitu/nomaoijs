@@ -109,12 +109,7 @@ Input.prototype.onTouchStart = function(event) {
     if (found === null) {
       continue;
     }
-    if (found.circuit !== null) {
-      continue;
-    }
-    found.circuit = new Circuit(this.config, this.context, this.gain);
-    found.circuit.play(found.noteNumber);
-    found.identifier = event.changedTouches[i].identifier;
+    found.play(this.config, this.context, this.gain, event.changedTouches[i].identifier);
   }
   event.preventDefault();
 };
@@ -151,9 +146,7 @@ Input.prototype.onTouchEnd = function(event) {
     if (found === null) {
       continue;
     }
-    found.circuit.stop();
-    found.circuit = null;
-    found.identifier = null;
+    found.stop();
   }
   event.preventDefault();
 };
