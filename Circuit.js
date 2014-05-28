@@ -136,7 +136,7 @@ function Circuit(config, context) {
 Circuit.prototype.setup = function() {
   this.oscillator = this.context.createOscillator();
   this.oscillator.type = this.config.getType();
-  this.gain = this.context.createGainNode();
+  this.gain = this.context.createGain();
   this.gain.connect(this.context.destination);
   this.oscillator.connect(this.gain);
 };
