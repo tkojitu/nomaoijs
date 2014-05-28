@@ -27,8 +27,8 @@ Pad.prototype.play = function(config, context, gain, identifier) {
   if (this.circuit) {
     return;
   }
-  this.circuit = new Circuit(config, context, gain);
-  this.circuit.play(this.noteNumber);
+  this.circuit = new Circuit(config, context, gain, this.noteNumber);
+  this.circuit.play();
   this.identifier = identifier;
 };
 
