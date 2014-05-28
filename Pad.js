@@ -24,7 +24,7 @@ Pad.prototype.touched = function(x, y) {
 };
 
 Pad.prototype.play = function(config, context, gain, identifier) {
-  if (this.circuit !== null) {
+  if (this.circuit) {
     return;
   }
   this.circuit = new Circuit(config, context, gain);

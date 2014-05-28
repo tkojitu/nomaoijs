@@ -106,7 +106,7 @@ Input.prototype.drawPads = function(context, pads) {
 Input.prototype.onTouchStart = function(event) {
   for (var i = 0; i < event.changedTouches.length; ++i) {
     var found = this.findTouchedPadAll(event.changedTouches[i]);
-    if (found === null) {
+    if (!found) {
       continue;
     }
     found.play(this.config, this.context, this.gain, event.changedTouches[i].identifier);
@@ -116,15 +116,15 @@ Input.prototype.onTouchStart = function(event) {
 
 Input.prototype.findTouchedPadAll = function(touch) {
   var found = this.findTouchedPad(touch, this.leftWhites);
-  if (found !== null) {
+  if (found) {
     return found;
   }
   found = this.findTouchedPad(touch, this.leftBlacks);
-  if (found !== null) {
+  if (found) {
     return found;
   }
   found = this.findTouchedPad(touch, this.rightWhites);
-  if (found !== null) {
+  if (found) {
     return found;
   }
   found = this.findTouchedPad(touch, this.rightBlacks);
@@ -143,7 +143,7 @@ Input.prototype.findTouchedPad = function(touch, pads) {
 Input.prototype.onTouchEnd = function(event) {
   for (var i = 0; i < event.changedTouches.length; ++i) {
     var found = this.findPlayingPadAll(event.changedTouches[i]);
-    if (found === null) {
+    if (!found) {
       continue;
     }
     found.stop();
@@ -153,19 +153,19 @@ Input.prototype.onTouchEnd = function(event) {
 
 Input.prototype.findPlayingPadAll = function(touch) {
   var found = this.findPlayingPad(touch, this.leftWhites);
-  if (found !== null) {
+  if (found) {
     return found;
   }
   found = this.findPlayingPad(touch, this.leftBlacks);
-  if (found !== null) {
+  if (found) {
     return found;
   }
   found = this.findPlayingPad(touch, this.rightBlacks);
-  if (found !== null) {
+  if (found) {
     return found;
   }
   found = this.findPlayingPad(touch, this.rightWhites);
-  if (found !== null) {
+  if (found) {
     return found;
   }
   return null;
@@ -179,4 +179,3 @@ Input.prototype.findPlayingPad = function(touch, pads) {
   }
   return null;
 };
-
