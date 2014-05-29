@@ -5,7 +5,22 @@ function Input(resource) {
   this.leftBlacks = [];
   this.rightBlacks = [];
   this.rightWhites = [];
+  this.addEventListeners();
   this.newPads(resource);
+}
+
+Input.prototype.addEventListeners = function() {
+  var that = this;
+  window.addEventListener("touchstart",
+                          function(e) {
+                            that.onTouchStart(e);
+                          },
+                          false);
+  window.addEventListener("touchend",
+                          function(e) {
+                            that.onTouchEnd(e);
+                          },
+                          false);
 }
 
 Input.prototype.newPads = function(resource) {
