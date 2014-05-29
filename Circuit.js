@@ -1,5 +1,7 @@
-function Circuit(resource, noteNumber) {
-  this.resource = resource;
+function Circuit(config, context, gain, noteNumber) {
+  this.oscillatorType = config.getType();
+  this.context = context;
+  this.gain = gain;
   this.noteNumber = noteNumber;
   this.frequencies = [
     8.1757989156,  // 0
@@ -134,10 +136,9 @@ function Circuit(resource, noteNumber) {
 }
 
 Circuit.prototype.setup = function() {
-  this.oscillator = this.resource.context.createOscillator();
-  this.oscillator.type = this.resource.config.getType();
-  this.resource.gain.connect(this.resource.context.destination);
-  this.oscillator.connect(this.resource.gain);
+  this.oscillator = this.context.createOscillator();
+  this.oscillator.type = this.oscillatorType;
+  this.oscillator.connect(this.gain);
 };
 
 Circuit.prototype.play = function() {
@@ -146,7 +147,7 @@ Circuit.prototype.play = function() {
   }
   this.setup();
   this.oscillator.frequency.value = this.frequencies[this.noteNumber];
-  this.resource.gain.gain.value = 0.5;
+  this.gain.gain.value = 0.5;
   this.oscillator.start(0);
 };
 
