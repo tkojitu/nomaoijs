@@ -1,4 +1,4 @@
-function Input(viewport, config, circuitFactory, padFactory) {
+function Input(viewport, config, circuitFactory, padFactory, gbend) {
   this.viewportWidth = viewport.width;
   this.viewportHeight = viewport.height;
   this.leftWhites = [];
@@ -6,7 +6,7 @@ function Input(viewport, config, circuitFactory, padFactory) {
   this.rightBlacks = [];
   this.rightWhites = [];
   this.addEventListeners();
-  this.newPads(config, circuitFactory, padFactory);
+  this.newPads(config, circuitFactory, padFactory, gbend);
 }
 
 Input.prototype.addEventListeners = function() {
@@ -23,14 +23,14 @@ Input.prototype.addEventListeners = function() {
                           false);
 }
 
-Input.prototype.newPads = function(config, circuitFactory, padFactory) {
-  this.newPadsLeftWhites(config, circuitFactory, padFactory);
-  this.newPadsLeftBlacks(config, circuitFactory, padFactory);
-  this.newPadsRightBlacks(config, circuitFactory, padFactory);
-  this.newPadsRightWhites(config, circuitFactory, padFactory);
+Input.prototype.newPads = function(config, circuitFactory, padFactory, gbend) {
+  this.newPadsLeftWhites(config, circuitFactory, padFactory, gbend);
+  this.newPadsLeftBlacks(config, circuitFactory, padFactory, gbend);
+  this.newPadsRightBlacks(config, circuitFactory, padFactory, gbend);
+  this.newPadsRightWhites(config, circuitFactory, padFactory, gbend);
 };
 
-Input.prototype.newPadsLeftWhites = function(config, circuitFactory, padFactory) {
+Input.prototype.newPadsLeftWhites = function(config, circuitFactory, padFactory, gbend) {
   var keys = config.getKeys()[0];
   var x = 0;
   var y = 0;
@@ -40,11 +40,12 @@ Input.prototype.newPadsLeftWhites = function(config, circuitFactory, padFactory)
     var circuit = circuitFactory(keys[i]);
     this.leftWhites[i] = padFactory(x, y, width, height, keys[i]);
     this.leftWhites[i].circuit = circuit;
+    gbend.addListener(circuit);
     y += height;
   }
 };
 
-Input.prototype.newPadsLeftBlacks = function(config, circuitFactory, padFactory) {
+Input.prototype.newPadsLeftBlacks = function(config, circuitFactory, padFactory, gbend) {
   var keys = config.getKeys()[1];
   var x = this.getPadWidth();
   var y = this.getPadHeight(0) / 2;
@@ -54,11 +55,12 @@ Input.prototype.newPadsLeftBlacks = function(config, circuitFactory, padFactory)
     var circuit = circuitFactory(keys[i]);
     this.leftBlacks[i] = padFactory(x, y, width, height, keys[i]);
     this.leftBlacks[i].circuit = circuit;
+    gbend.addListener(circuit);
     y += height;
   }
 };
 
-Input.prototype.newPadsRightBlacks = function(config, circuitFactory, padFactory) {
+Input.prototype.newPadsRightBlacks = function(config, circuitFactory, padFactory, gbend) {
   var keys = config.getKeys()[2];
   var x = this.getPadWidth() * 3;
   var y = this.getPadHeight() / 2;
@@ -68,11 +70,12 @@ Input.prototype.newPadsRightBlacks = function(config, circuitFactory, padFactory
     var circuit = circuitFactory(keys[i]);
     this.rightBlacks[i] = padFactory(x, y, width, height, keys[i]);
     this.rightBlacks[i].circuit = circuit;
+    gbend.addListener(circuit);
     y += height;
   }
 };
 
-Input.prototype.newPadsRightWhites = function(config, circuitFactory, padFactory) {
+Input.prototype.newPadsRightWhites = function(config, circuitFactory, padFactory, gbend) {
   var keys = config.getKeys()[3];
   var x = this.getPadWidth() * 4;
   var y = 0;
@@ -82,6 +85,7 @@ Input.prototype.newPadsRightWhites = function(config, circuitFactory, padFactory
     var circuit = circuitFactory(keys[i]);
     this.rightWhites[i] = padFactory(x, y, width, height, keys[i]);
     this.rightWhites[i].circuit = circuit;
+    gbend.addListener(circuit);
     y += height;
   }
 };

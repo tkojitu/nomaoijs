@@ -40,7 +40,8 @@
                        return new Input(c.getInstance("viewport"),
                                         c.getInstance("config"),
                                         c.getInstance("circuitFactory"),
-                                        c.getInstance("padFactory"));
+                                        c.getInstance("padFactory"),
+                                        c.getInstance("gbend"));
                      });
     container.define("circuitFactory",
                      function(c) {
@@ -56,6 +57,10 @@
                        return function(x, y, width, height, noteNumber) {
                          return new Pad(x, y, width, height, noteNumber);
                        };
+                     });
+    container.define("gbend",
+                     function(c) {
+                       return new Gbend();
                      });
     resizeViewport(container.getInstance("viewport"));
     var input = container.getInstance("input");

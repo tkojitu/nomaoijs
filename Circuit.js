@@ -155,3 +155,11 @@ Circuit.prototype.stop = function() {
   this.oscillator.stop(0);
   this.oscillator = null;
 };
+
+Circuit.prototype.onVelocityChanged = function(velocity) {
+  if (!this.oscillator) {
+    return;
+  }
+  var freq = this.frequencies[this.noteNumber];
+  this.oscillator.frequency.value = freq + (velocity - 9.81) * 2;
+};
