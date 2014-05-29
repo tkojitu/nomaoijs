@@ -1,11 +1,11 @@
-function Pad(x, y, width, height, resource, noteNumber) {
+function Pad(x, y, width, height, noteNumber, circuit) {
   this.x = x;
   this.y = y;
   this.width = width;
   this.height = height;
   this.noteNumber = noteNumber;
+  this.circuit = circuit;
   this.identifier = null;
-  this.circuit = new Circuit(resource, noteNumber);
 }
 
 Pad.prototype.draw = function(context) {

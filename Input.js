@@ -6,60 +6,64 @@ function Input(resource) {
   this.leftBlacks = [];
   this.rightBlacks = [];
   this.rightWhites = [];
-  this.newPads();
+  this.newPads(this.resource.config);
 }
 
-Input.prototype.newPads = function() {
-  this.newPadsLeftWhites();
-  this.newPadsLeftBlacks();
-  this.newPadsRightBlacks();
-  this.newPadsRightWhites();
+Input.prototype.newPads = function(config) {
+  this.newPadsLeftWhites(config);
+  this.newPadsLeftBlacks(config);
+  this.newPadsRightBlacks(config);
+  this.newPadsRightWhites(config);
 };
 
-Input.prototype.newPadsLeftWhites = function() {
-  var keys = this.resource.config.getKeys()[0];
+Input.prototype.newPadsLeftWhites = function(config) {
+  var keys = config.getKeys()[0];
   var x = 0;
   var y = 0;
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.leftWhites[i] = new Pad(x, y, width, height, this.resource, keys[i]);
+    var circuit = new Circuit(this.resource, keys[i]);
+    this.leftWhites[i] = new Pad(x, y, width, height, keys[i], circuit);
     y += height;
   }
 };
 
-Input.prototype.newPadsLeftBlacks = function() {
-  var keys = this.resource.config.getKeys()[1];
+Input.prototype.newPadsLeftBlacks = function(config) {
+  var keys = config.getKeys()[1];
   var x = this.getPadWidth();
   var y = this.getPadHeight(0) / 2;
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.leftBlacks[i] = new Pad(x, y, width, height, this.resource, keys[i]);
+    var circuit = new Circuit(this.resource, keys[i]);
+    this.leftBlacks[i] = new Pad(x, y, width, height, keys[i], circuit);
     y += height;
   }
 };
 
-Input.prototype.newPadsRightBlacks = function() {
-  var keys = this.resource.config.getKeys()[2];
+Input.prototype.newPadsRightBlacks = function(config) {
+  var keys = config.getKeys()[2];
   var x = this.getPadWidth() * 3;
   var y = this.getPadHeight() / 2;
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.rightBlacks[i] = new Pad(x, y, width, height, this.resource, keys[i]);
+    var circuit = new Circuit(this.resource, keys[i]);
+    this.rightBlacks[i] = new Pad(x, y, width, height, keys[i], circuit);
     y += height;
   }
 };
 
-Input.prototype.newPadsRightWhites = function() {
-  var keys = this.resource.config.getKeys()[3];
+Input.prototype.newPadsRightWhites = function(config) {
+  var keys = config.getKeys()[3];
   var x = this.getPadWidth() * 4;
   var y = 0;
   var width = this.getPadWidth();
   var height = this.getPadHeight();
   for (var i = 0; i < keys.length; ++i) {
-    this.rightWhites[i] = new Pad(x, y, width, height, this.resource, keys[i]);
+    var circuit = new Circuit(this.resource, keys[i]);
+    this.rightWhites[i] = new Pad(x, y, width, height, keys[i], circuit);
     y += height;
   }
 };
