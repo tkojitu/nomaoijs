@@ -24,68 +24,55 @@ Input.prototype.addEventListeners = function() {
 }
 
 Input.prototype.newPads = function(config, circuitFactory, padFactory, gbend) {
-  this.newPadsLeftWhites(config, circuitFactory, padFactory, gbend);
-  this.newPadsLeftBlacks(config, circuitFactory, padFactory, gbend);
-  this.newPadsRightBlacks(config, circuitFactory, padFactory, gbend);
-  this.newPadsRightWhites(config, circuitFactory, padFactory, gbend);
+  var resource = {
+    config: config,
+    circuitFactory: circuitFactory,
+    padFactory: padFactory,
+    gbend: gbend,
+    configKeys: null
+  };
+  this.newPadsLeftWhites(resource);
+  this.newPadsLeftBlacks(resource);
+  this.newPadsRightBlacks(resource);
+  this.newPadsRightWhites(resource);
 };
 
-Input.prototype.newPadsLeftWhites = function(config, circuitFactory, padFactory, gbend) {
-  var keys = config.getKeys()[0];
+Input.prototype.newPadsLeftWhites = function(resource) {
+  resource.configKeys = resource.config.getKeys()[0];
   var x = 0;
   var y = 0;
-  var width = this.getPadWidth();
-  var height = this.getPadHeight();
-  for (var i = 0; i < keys.length; ++i) {
-    var circuit = circuitFactory(keys[i]);
-    this.leftWhites[i] = padFactory(x, y, width, height, keys[i]);
-    this.leftWhites[i].circuit = circuit;
-    gbend.addListener(circuit);
-    y += height;
-  }
+  this.newPadsImpl(resource, x, y, this.leftWhites);
 };
 
-Input.prototype.newPadsLeftBlacks = function(config, circuitFactory, padFactory, gbend) {
-  var keys = config.getKeys()[1];
+Input.prototype.newPadsLeftBlacks = function(resource) {
+  resource.configKeys = resource.config.getKeys()[1];
   var x = this.getPadWidth();
   var y = this.getPadHeight(0) / 2;
-  var width = this.getPadWidth();
-  var height = this.getPadHeight();
-  for (var i = 0; i < keys.length; ++i) {
-    var circuit = circuitFactory(keys[i]);
-    this.leftBlacks[i] = padFactory(x, y, width, height, keys[i]);
-    this.leftBlacks[i].circuit = circuit;
-    gbend.addListener(circuit);
-    y += height;
-  }
+  this.newPadsImpl(resource, x, y, this.leftBlacks);
 };
 
-Input.prototype.newPadsRightBlacks = function(config, circuitFactory, padFactory, gbend) {
-  var keys = config.getKeys()[2];
+Input.prototype.newPadsRightBlacks = function(resource) {
+  resource.configKeys = resource.config.getKeys()[2];
   var x = this.getPadWidth() * 3;
   var y = this.getPadHeight() / 2;
-  var width = this.getPadWidth();
-  var height = this.getPadHeight();
-  for (var i = 0; i < keys.length; ++i) {
-    var circuit = circuitFactory(keys[i]);
-    this.rightBlacks[i] = padFactory(x, y, width, height, keys[i]);
-    this.rightBlacks[i].circuit = circuit;
-    gbend.addListener(circuit);
-    y += height;
-  }
+  this.newPadsImpl(resource, x, y, this.rightBlacks);
 };
 
-Input.prototype.newPadsRightWhites = function(config, circuitFactory, padFactory, gbend) {
-  var keys = config.getKeys()[3];
+Input.prototype.newPadsRightWhites = function(resource) {
+  resource.configKeys = resource.config.getKeys()[3];
   var x = this.getPadWidth() * 4;
   var y = 0;
+  this.newPadsImpl(resource,x, y, this.rightWhites);
+};
+
+Input.prototype.newPadsImpl = function(resource, x, y, thisKeys) {
   var width = this.getPadWidth();
   var height = this.getPadHeight();
-  for (var i = 0; i < keys.length; ++i) {
-    var circuit = circuitFactory(keys[i]);
-    this.rightWhites[i] = padFactory(x, y, width, height, keys[i]);
-    this.rightWhites[i].circuit = circuit;
-    gbend.addListener(circuit);
+  for (var i = 0; i < resource.configKeys.length; ++i) {
+    var circuit = resource.circuitFactory(resource.configKeys[i]);
+    thisKeys[i] = resource.padFactory(x, y, width, height, resource.configKeys[i]);
+    thisKeys[i].circuit = circuit;
+    resource.gbend.addListener(circuit);
     y += height;
   }
 };
