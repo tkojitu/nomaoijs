@@ -27,7 +27,7 @@
                      });
     container.define("context",
                      function(c) {
-                       return new webkitAudioContext();
+                       return new AudioContext();
                      });
     container.define("gain",
                      function(c) {
