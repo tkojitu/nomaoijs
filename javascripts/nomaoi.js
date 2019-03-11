@@ -1,3 +1,4 @@
+import Circuit from "./Circuit.js";
 import Config from "./Config.js";
 import Container from "./Container.js";
 
