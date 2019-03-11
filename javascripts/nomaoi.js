@@ -1,6 +1,7 @@
 import Circuit from "./Circuit.js";
 import Config from "./Config.js";
 import Container from "./Container.js";
+import Pad from "./Pad.js";
 
 function onLoad() {
   var container = new Container();
