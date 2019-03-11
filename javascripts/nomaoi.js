@@ -1,3 +1,4 @@
+import Config from "./Config.js";
 import Container from "./Container.js";
 
 function onLoad() {
